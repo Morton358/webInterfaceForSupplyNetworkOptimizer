@@ -7,22 +7,5 @@
 }
 
 .AuthenticationLogInTab, .AuthenticationRegisterTab {
-  background-color: #2d81e6;
-  border: none;
-  color: white;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  padding: 15px 32px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  top: 0;
-  transition-duration: 0.4s;
   width: 50%;
-  -webkit-transition-duration: 0.4s; /* Safari */
-}
-
-.AuthenticationLogInTab:hover, .AuthenticationRegisterTab:hover {
-  background-color: blue;
 }
