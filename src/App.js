@@ -5,32 +5,31 @@ import Authentication from './Authentication/Authentication.js';
 import Entepreneur from './Entepreneur/Entepreneur';
 
 class App extends Component {
-  state = {
-    content : 'authentication',
-  };
+    state = {
+        content: 'authentication'
+    };
 
-  handleSubmit = (event) => {
-    this.setState({content: 'entepreneur'})
-  }
-  render() {
+    handleSubmit = event => { // eslint-disable-line
+        this.setState({ content: 'entepreneur' });
+    };
+    render() {
+        let content = null;
+        if (this.state.content === 'authentication') {
+            content = <Authentication submit={this.handleSubmit} />;
+        }
+        if (this.state.content === 'entepreneur') {
+            content = <Entepreneur />;
+        }
 
-    let content = null;
-    if (this.state.content === 'authentication') {
-      content = (<Authentication  submit={this.handleSubmit}/>)
+        return (
+            <div className="App">
+                <MuiThemeProvider>
+                    <p>Some header</p>
+                    {content}
+                </MuiThemeProvider>
+            </div>
+        );
     }
-    if (this.state.content === 'entepreneur') {
-      content = (<Entepreneur />)
-    }
-
-    return (
-      <div className="App">
-        <MuiThemeProvider>
-          <p>Some header</p>
-          {content}
-        </MuiThemeProvider>
-      </div>
-    );
-  }
 }
 
 export default App;
