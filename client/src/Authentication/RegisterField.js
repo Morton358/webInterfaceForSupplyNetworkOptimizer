@@ -1,20 +1,30 @@
 import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
+import { MenuItem, MenuList } from 'material-ui/Menu';
+import Button from 'material-ui/Button';
 
 class RegisterField extends Component {
     state = {
-        value: 0
+        typeOfUser: 'entepreneur'
     };
 
-    handleChange = (event, index, value) => this.setState({ value });
+    handleClickMenuItem = (event, user) => this.setState({ typeOfUser: user });
 
     render() {
         return (
-            <div>
-                <SelectField
+            <div className={{ display: 'flex' }}>
+                <MenuList>
+                    <MenuItem onClick={this.handleClickMenuItem('farmer')}>
+                        Farmer
+                    </MenuItem>
+                    <MenuItem onClick={this.handleClickMenuItem('entepreneur')}>
+                        Entepreneur
+                    </MenuItem>
+                    <MenuItem onClick={this.handleClickMenuItem('client')}>
+                        Client
+                    </MenuItem>
+                </MenuList>
+                {/* <SelectField
                     floatingLabelText="Choose your role:"
                     value={this.state.value}
                     onChange={this.handleChange}
@@ -22,7 +32,7 @@ class RegisterField extends Component {
                     <MenuItem value={1} primaryText="Farmer" />
                     <MenuItem value={2} primaryText="Entepreneur" />
                     <MenuItem value={3} primaryText="Client" />
-                </SelectField>
+                </SelectField> */}
                 <br />
                 <TextField
                     hintText="First Name"
@@ -61,15 +71,14 @@ class RegisterField extends Component {
                     required
                     type="password"
                 />
-                <br />
-                <br />
-                <br />
-                <RaisedButton
-                    label="Register"
-                    primary={true}
-                    fullWidth={true}
+                <Button
+                    variant="raised"
+                    color="primary"
+                    fullWidth
                     onClick={this.props.submit}
-                />
+                >
+                    Register
+                </Button>
             </div>
         );
     }

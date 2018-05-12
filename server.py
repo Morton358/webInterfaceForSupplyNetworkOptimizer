@@ -1,6 +1,7 @@
 """This module does run the server."""
 import os
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, jsonify
+import application.main
 
 APP = Flask(__name__, static_folder='client/build')
 
@@ -15,6 +16,11 @@ def serve(path):
     if path != "" and os.path.exists("client/build/" + path):
         return send_from_directory('client/build', path)
     return send_from_directory('client/build', 'index.html')
+
+@APP.route("/api/solve", methods=["GET"])
+def calculate():
+    binder = application.main.solveProblem()
+    return jsonify(binder)
 
 if __name__ == '__main__':
     APP.run(use_reloader=True, port=5000, threaded=True)

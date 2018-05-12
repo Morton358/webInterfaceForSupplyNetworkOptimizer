@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.43",
+    "axios": "^0.18.0",
     "brcast": "^3.0.1",
-    "material-ui": "^0.20.0",
+    "material-ui": "^1.0.0-beta.45",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "react-scripts-cssmodules": "^1.1.10",
+    "typeface-roboto": "^0.0.54"
   },
   "scripts": {
     "start": "react-scripts start",

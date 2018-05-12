@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import Button from 'material-ui/Button';
 
 class Entepreneur extends Component {
     render() {
@@ -13,8 +13,8 @@ class Entepreneur extends Component {
                     showExpandableButton={true}
                 />
                 <CardActions>
-                    <FlatButton label="OK" />
-                    <FlatButton label="CANCEL" />
+                    <Button> OK </Button>
+                    <Button> CANCEL </Button>
                 </CardActions>
                 <CardText expandable={true}>
                     lacus id, pellentesque lobortis odio.

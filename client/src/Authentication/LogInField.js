@@ -1,7 +1,7 @@
 import React from 'react';
 import './Authentication.css';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from 'material-ui/Button';
 
 const logInField = props => {
     return (
@@ -18,12 +18,14 @@ const logInField = props => {
                 type="password"
             />
             <br />
-            <RaisedButton
-                label="Log In"
-                primary={true}
-                fullWidth={true}
+            <Button
+                variant="raised"
+                color="primary"
+                fullWidth
                 onClick={props.submit}
-            />
+            >
+                Log In
+            </Button>
         </div>
     );
 };
