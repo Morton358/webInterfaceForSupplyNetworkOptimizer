@@ -4,25 +4,23 @@ import Button from 'material-ui/Button';
 import Paper from 'material-ui/Paper';
 import Typography from 'material-ui/Typography';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { CircularProgress } from 'material-ui/Progress';
 
 import styles from './App.module.css';
+import withErrorHandler from '../withErrorHandler/withErrorHandler';
+import * as actions from '../../store/actions/index';
 import headerImage from '../../assets/images/header.png';
 import footerImage from '../../assets/images/footer.png';
 // import Authentication from './Authentication/Authentication.js';
 // import Entepreneur from './Entepreneur/Entepreneur';
 
 class App extends Component {
-    state = {
-        content: 'authentication',
-        response: null
-    };
+    state = {};
 
     handleSolveProblem = event => {
         event.preventDefault();
-        axios.get('/api/solve').then(response => {
-            console.log('response from server:', response);
-            this.setState({ response: response.data });
-        });
+        this.props.onSolveProblem();
     };
 
     // handleSubmit = event => {// eslint-disable-line
@@ -38,16 +36,31 @@ class App extends Component {
         // }
 
         let result = null;
-        if (this.state.response !== null) {
+
+        if (this.props.loading) {
             result = (
-                <Paper elevation={6}>
+                <center>
+                    <CircularProgress size={100} />
+                </center>
+            );
+        }
+
+        if (this.props.objective) {
+            result = (
+                <Paper elevation={6} className={styles.Paper__resultOfSolving}>
                     <Typography variant="headline" component="h3">
                         The result of solving this problem is:
                     </Typography>
                     <Typography component="p">
-                        Objective is: {this.state.response.objective}
+                        Objective is: {this.props.objective}
                     </Typography>
-                    {/* <Typography component="p">Primal solutions is: {this.state.response.primalSolutions}</Typography> */}
+                    {this.props.primalSolutions.map((primalSolution, index) => {
+                        return (
+                            <Typography component="p">
+                                Primal solutions №{index}: {primalSolution}
+                            </Typography>
+                        );
+                    })}
                 </Paper>
             );
         }
@@ -57,9 +70,9 @@ class App extends Component {
                 <Grid
                     container
                     spacing={16}
-                    direction='column'
-                    justify='space-between'
-                    alignItems='stretch'
+                    direction="column"
+                    justify="space-between"
+                    alignItems="stretch"
                 >
                     <Grid item>
                         <img
@@ -91,4 +104,22 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        objective: state.objective,
+        primalSolutions: state.primalSol,
+        error: state.error,
+        errorOccured: state.errorOccured,
+        loading: state.loading
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onSolveProblem: () => dispatch(actions.solveProblem())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(
+    withErrorHandler(App, axios)
+);

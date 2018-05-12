@@ -19,8 +19,11 @@ def serve(path):
 
 @APP.route("/api/solve", methods=["GET"])
 def calculate():
-    binder = application.main.solveProblem()
-    return jsonify(binder)
+    try:
+        binder = application.main.solveProblem()
+        return jsonify(binder)
+    except:
+        raise Exception('There has been an error in back-end calculation')
 
 if __name__ == '__main__':
     APP.run(use_reloader=True, port=5000, threaded=True)
