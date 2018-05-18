@@ -1,7 +1,7 @@
 import itertools
 from pandas import *
 from operator import mul
-import application.mathModel
+import application.connector_database
 
 
 
@@ -21,46 +21,46 @@ def sumRow(m, row):
         total += m[row][column]
     return total
 
-countOfConstraints = ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E) + application.mathModel.E + application.mathModel.R +
-                      application.mathModel.R + 2 + (application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))
-countOfDesitionVariables = ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E) + (application.mathModel.I * application.mathModel.R) +
-                            (application.mathModel.R * application.mathModel.E))
+countOfConstraints = ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E) + application.connector_database.E + application.connector_database.R +
+                      application.connector_database.R + 2 + (application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))
+countOfDesitionVariables = ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E) + (application.connector_database.I * application.connector_database.R) +
+                            (application.connector_database.R * application.connector_database.E))
 
 sumaA = 0
-for i in range(application.mathModel.I):
-    for r in range(application.mathModel.R):
-        sumaA += (1 - 1/application.mathModel.V[r]) * application.mathModel.A1_R__1_I[i][r]
+for i in range(application.connector_database.I):
+    for r in range(application.connector_database.R):
+        sumaA += (1 - 1/application.connector_database.V[r]) * application.connector_database.A1_R__1_I[i][r]
 
 
 print('sumaA: ', sumaA)
 
 sumaZ = 0
-for r in range(application.mathModel.R):
-    sumaZ += 1/application.mathModel.V[r] * application.mathModel.Z1_R[r]
+for r in range(application.connector_database.R):
+    sumaZ += 1/application.connector_database.V[r] * application.connector_database.Z1_R[r]
 
 print('sumaZ: ', sumaZ)
 
 
-constOfConstraint7 = (sum(itertools.chain(application.mathModel.W, application.mathModel.Z)) + sumaA + sum(application.mathModel.A1_R__1_E_arr) +
-                     sum(application.mathModel.Y) + sumaZ)
-constOfConstraint6 = sum(application.mathModel.A1_R__1_I_arr) + sum(itertools.chain(application.mathModel.W, application.mathModel.Z))
+constOfConstraint7 = (sum(itertools.chain(application.connector_database.W, application.connector_database.Z)) + sumaA + sum(application.connector_database.A1_R__1_E_arr) +
+                     sum(application.connector_database.Y) + sumaZ)
+constOfConstraint6 = sum(application.connector_database.A1_R__1_I_arr) + sum(itertools.chain(application.connector_database.W, application.connector_database.Z))
 constsOfConstraint5 = []
 constsOfConstraint4 = []
 constsOfConstraint3 = []
-constsOfConstraint2 = application.mathModel.A1_R__1_E_arr
-constsOfConstraint1 = application.mathModel.A1_R__1_I_arr
-constsOfConstraint8 = [0] * (application.mathModel.I * application.mathModel.R)
-constsOfConstraint9 = [0] * (application.mathModel.R * application.mathModel.E)
+constsOfConstraint2 = application.connector_database.A1_R__1_E_arr
+constsOfConstraint1 = application.connector_database.A1_R__1_I_arr
+constsOfConstraint8 = [0] * (application.connector_database.I * application.connector_database.R)
+constsOfConstraint9 = [0] * (application.connector_database.R * application.connector_database.E)
 
-for iteratorR in range(application.mathModel.R):
-    temporary5 = ((sumColumn(application.mathModel.A1_R__1_I, iteratorR) - application.mathModel.Z1_R[iteratorR]) / application.mathModel.V[iteratorR]
-                 - application.mathModel.Y[iteratorR] - sumRow(application.mathModel.A1_R__1_E, iteratorR))
+for iteratorR in range(application.connector_database.R):
+    temporary5 = ((sumColumn(application.connector_database.A1_R__1_I, iteratorR) - application.connector_database.Z1_R[iteratorR]) / application.connector_database.V[iteratorR]
+                 - application.connector_database.Y[iteratorR] - sumRow(application.connector_database.A1_R__1_E, iteratorR))
     constsOfConstraint5.append(temporary5)
-    temporary4 = application.mathModel.G[iteratorR] * application.mathModel.V[iteratorR] + sumColumn(application.mathModel.A1_R__1_I, iteratorR)
+    temporary4 = application.connector_database.G[iteratorR] * application.connector_database.V[iteratorR] + sumColumn(application.connector_database.A1_R__1_I, iteratorR)
     constsOfConstraint4.append(temporary4)
 
-for iteratorE in range(application.mathModel.E):
-    temporary3 = application.mathModel.K[iteratorE] + sumColumn(application.mathModel.A1_R__1_E, iteratorE)
+for iteratorE in range(application.connector_database.E):
+    temporary3 = application.connector_database.K[iteratorE] + sumColumn(application.connector_database.A1_R__1_E, iteratorE)
     constsOfConstraint3.append(temporary3)
 
 allConstsOfConstraints = []
@@ -81,29 +81,29 @@ greaterThenEqual = 'G'
 signsOfConstrainExpressions = []
 signOfConstrainExpression7 = lessThenEqual
 signsOfConstrainExpressions.append(signOfConstrainExpression7)
-signsOfConstrain5 = [equalTo for i in range(application.mathModel.R)]
+signsOfConstrain5 = [equalTo for i in range(application.connector_database.R)]
 signsOfConstrainExpressions.extend(signsOfConstrain5)
 signOfConstrainExpression6 = lessThenEqual
 signsOfConstrainExpressions.append(signOfConstrainExpression6)
-signsOfConstrain4 = [lessThenEqual for i in range(application.mathModel.R)]
+signsOfConstrain4 = [lessThenEqual for i in range(application.connector_database.R)]
 signsOfConstrainExpressions.extend(signsOfConstrain4)
-signsOfConstrain3 = [greaterThenEqual for i in range(application.mathModel.E)]
+signsOfConstrain3 = [greaterThenEqual for i in range(application.connector_database.E)]
 signsOfConstrainExpressions.extend(signsOfConstrain3)
-signsOfConstrain1 = [greaterThenEqual for i in range(application.mathModel.R * application.mathModel.I)]
+signsOfConstrain1 = [greaterThenEqual for i in range(application.connector_database.R * application.connector_database.I)]
 signsOfConstrainExpressions.extend(signsOfConstrain1)
-signsOfConstrain2 = [greaterThenEqual for i in range(application.mathModel.R * application.mathModel.E)]
+signsOfConstrain2 = [greaterThenEqual for i in range(application.connector_database.R * application.connector_database.E)]
 signsOfConstrainExpressions.extend(signsOfConstrain2)
-signsOfConstrain8 = [lessThenEqual for i in range(application.mathModel.R * application.mathModel.I)]
+signsOfConstrain8 = [lessThenEqual for i in range(application.connector_database.R * application.connector_database.I)]
 signsOfConstrainExpressions.extend(signsOfConstrain8)
-signsOfConstrain9 = [lessThenEqual for i in range(application.mathModel.R * application.mathModel.E)]
+signsOfConstrain9 = [lessThenEqual for i in range(application.connector_database.R * application.connector_database.E)]
 signsOfConstrainExpressions.extend(signsOfConstrain9)
 
 
 constantsOfDecisionVariableOfConstrain7 = []
-constantsOfDecisionVariableOfConstrain6 = ([1 for i in range(application.mathModel.I * application.mathModel.R)] +
-                                           [0 for i in range(application.mathModel.R * application.mathModel.E)] +
-                                           [0 for i in range((application.mathModel.I * application.mathModel.R) +
-                                                             (application.mathModel.R * application.mathModel.E))])
+constantsOfDecisionVariableOfConstrain6 = ([1 for i in range(application.connector_database.I * application.connector_database.R)] +
+                                           [0 for i in range(application.connector_database.R * application.connector_database.E)] +
+                                           [0 for i in range((application.connector_database.I * application.connector_database.R) +
+                                                             (application.connector_database.R * application.connector_database.E))])
 constantsOfDecisionVariableOfConstrain5i1 = []
 constantsOfDecisionVariableOfConstrain5i2 = []
 constantsOfDecisionVariableOfConstrain5i3 = []
@@ -134,48 +134,48 @@ constantsOfDecisionVariableOfConstrain9i3 = []
 constantsOfDecisionVariableOfConstrain9i4 = []
 
 indeks = 0
-for i in range((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E)):
-    if indeks + 1 > application.mathModel.R:
+for i in range((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E)):
+    if indeks + 1 > application.connector_database.R:
         indeks = 0
-    constantsOfDecisionVariableOfConstrain7.append(1 - 1/application.mathModel.V[indeks])
+    constantsOfDecisionVariableOfConstrain7.append(1 - 1/application.connector_database.V[indeks])
     indeks += 1
-constantsOfDecisionVariableOfConstrain7 += [0 for i in range((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))]
+constantsOfDecisionVariableOfConstrain7 += [0 for i in range((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))]
 
-for iter in range(application.mathModel.R):
-    constantsOfDecisionVariableOfConstrain5i1.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain5i2.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain5i3.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain5i4.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain4i1.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain4i2.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain4i3.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain4i4.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
+for iter in range(application.connector_database.R):
+    constantsOfDecisionVariableOfConstrain5i1.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain5i2.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain5i3.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain5i4.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain4i1.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain4i2.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain4i3.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain4i4.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
 
-for it in range(application.mathModel.E):
-    constantsOfDecisionVariableOfConstrain3i1.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain3i2.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain3i3.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain3i4.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
+for it in range(application.connector_database.E):
+    constantsOfDecisionVariableOfConstrain3i1.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain3i2.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain3i3.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain3i4.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
 
-for itrator in range(application.mathModel.I * application.mathModel.R):
-    constantsOfDecisionVariableOfConstrain1i1.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain1i2.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain1i3.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain1i4.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain8i1.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain8i2.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain8i3.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain8i4.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
+for itrator in range(application.connector_database.I * application.connector_database.R):
+    constantsOfDecisionVariableOfConstrain1i1.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain1i2.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain1i3.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain1i4.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain8i1.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain8i2.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain8i3.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain8i4.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
 
-for ittrator in range(application.mathModel.R * application.mathModel.E):
-    constantsOfDecisionVariableOfConstrain2i1.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain2i2.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain2i3.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain2i4.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain9i1.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain9i2.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
-    constantsOfDecisionVariableOfConstrain9i3.append([0 for i in range(application.mathModel.I * application.mathModel.R)])
-    constantsOfDecisionVariableOfConstrain9i4.append([0 for i in range(application.mathModel.R * application.mathModel.E)])
+for ittrator in range(application.connector_database.R * application.connector_database.E):
+    constantsOfDecisionVariableOfConstrain2i1.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain2i2.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain2i3.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain2i4.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain9i1.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain9i2.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
+    constantsOfDecisionVariableOfConstrain9i3.append([0 for i in range(application.connector_database.I * application.connector_database.R)])
+    constantsOfDecisionVariableOfConstrain9i4.append([0 for i in range(application.connector_database.R * application.connector_database.E)])
 
 
 iterator = 0
@@ -184,9 +184,9 @@ indexOfLists = -1
 for lists in constantsOfDecisionVariableOfConstrain5i1:
     indexOfLists += 1
     iterator = indexOfLists
-    while iterator < application.mathModel.I * application.mathModel.R:
-        lists[iterator] = 1/application.mathModel.V[iteratorV]
-        iterator += application.mathModel.R
+    while iterator < application.connector_database.I * application.connector_database.R:
+        lists[iterator] = 1/application.connector_database.V[iteratorV]
+        iterator += application.connector_database.R
     iteratorV += 1
 
 iterator = 0
@@ -194,28 +194,28 @@ indexOfLists = -1
 for lists in constantsOfDecisionVariableOfConstrain5i2:
     indexOfLists += 1
     iterator = indexOfLists
-    for i in range(application.mathModel.E):
+    for i in range(application.connector_database.E):
         lists[iterator] = -1
         iterator += 1
-    indexOfLists += application.mathModel.E-1
+    indexOfLists += application.connector_database.E-1
 
 iterator = 0
 indexOfLists = -1
 for lists in constantsOfDecisionVariableOfConstrain4i1:
     indexOfLists += 1
     iterator = indexOfLists
-    while iterator < application.mathModel.I * application.mathModel.R:
+    while iterator < application.connector_database.I * application.connector_database.R:
         lists[iterator] = 1
-        iterator += application.mathModel.R
+        iterator += application.connector_database.R
 
 iterator = 0
 indexOfLists = -1
 for lists in constantsOfDecisionVariableOfConstrain3i2:
     indexOfLists += 1
     iterator = indexOfLists
-    while iterator < application.mathModel.R * application.mathModel.E:
+    while iterator < application.connector_database.R * application.connector_database.E:
         lists[iterator] = 1
-        iterator += application.mathModel.E
+        iterator += application.connector_database.E
 
 iterator = 0
 indexOfLists = -1
@@ -236,7 +236,7 @@ indexOfLists = -1
 for lists in constantsOfDecisionVariableOfConstrain8i1:
     indexOfLists += 1
     iterator = indexOfLists
-    lists[iterator] = 1 / application.mathModel.Q_TIR
+    lists[iterator] = 1 / application.connector_database.Q_TIR
 
 iterator = 0
 indexOfLists = -1
@@ -250,7 +250,7 @@ indexOfLists = -1
 for lists in constantsOfDecisionVariableOfConstrain9i2:
     indexOfLists += 1
     iterator = indexOfLists
-    lists[iterator] = 1 / application.mathModel.Q
+    lists[iterator] = 1 / application.connector_database.Q
 
 iterator = 0
 indexOfLists = -1
@@ -267,7 +267,7 @@ constantsOfDecisionVariableOfConstrain3arr = []
 constantsOfDecisionVariableOfConstrain2arr = []
 constantsOfDecisionVariableOfConstrain1arr = []
 
-for i in range(application.mathModel.R):
+for i in range(application.connector_database.R):
     constantsOfDecisionVariableOfConstrain5arr.extend(constantsOfDecisionVariableOfConstrain5i1[i] +
                                                       constantsOfDecisionVariableOfConstrain5i2[i] +
                                                       constantsOfDecisionVariableOfConstrain5i3[i] +
@@ -277,13 +277,13 @@ for i in range(application.mathModel.R):
                                                       constantsOfDecisionVariableOfConstrain4i3[i] +
                                                       constantsOfDecisionVariableOfConstrain4i4[i])
 
-for i in range(application.mathModel.E):
+for i in range(application.connector_database.E):
     constantsOfDecisionVariableOfConstrain3arr.extend(constantsOfDecisionVariableOfConstrain3i1[i] +
                                                       constantsOfDecisionVariableOfConstrain3i2[i] +
                                                       constantsOfDecisionVariableOfConstrain3i3[i] +
                                                       constantsOfDecisionVariableOfConstrain3i4[i])
 
-for i in range(application.mathModel.I * application.mathModel.R):
+for i in range(application.connector_database.I * application.connector_database.R):
     constantsOfDecisionVariableOfConstrain1arr.extend(constantsOfDecisionVariableOfConstrain1i1[i] +
                                                       constantsOfDecisionVariableOfConstrain1i2[i] +
                                                       constantsOfDecisionVariableOfConstrain1i3[i] +
@@ -293,7 +293,7 @@ for i in range(application.mathModel.I * application.mathModel.R):
                                                       constantsOfDecisionVariableOfConstrain8i3[i] +
                                                       constantsOfDecisionVariableOfConstrain8i4[i])
 
-for i in range(application.mathModel.R * application.mathModel.E):
+for i in range(application.connector_database.R * application.connector_database.E):
     constantsOfDecisionVariableOfConstrain2arr.extend(constantsOfDecisionVariableOfConstrain2i1[i] +
                                                       constantsOfDecisionVariableOfConstrain2i2[i] +
                                                       constantsOfDecisionVariableOfConstrain2i3[i] +
@@ -304,36 +304,36 @@ for i in range(application.mathModel.R * application.mathModel.E):
                                                       constantsOfDecisionVariableOfConstrain9i4[i])
 
 constantsOfDecisionVariableOfConstrain5 = \
-    ([constantsOfDecisionVariableOfConstrain5arr[y:y + ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2]
+    ([constantsOfDecisionVariableOfConstrain5arr[y:y + ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2]
                                             for y in range(0, len(constantsOfDecisionVariableOfConstrain5arr),
-                                                           ((application.mathModel.I * application.mathModel.R) +
-                                                            (application.mathModel.R * application.mathModel.E))*2)])
+                                                           ((application.connector_database.I * application.connector_database.R) +
+                                                            (application.connector_database.R * application.connector_database.E))*2)])
 constantsOfDecisionVariableOfConstrain4 = \
-    ([constantsOfDecisionVariableOfConstrain4arr[z:z + ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2]
-      for z in range(0, len(constantsOfDecisionVariableOfConstrain4arr), ((application.mathModel.I * application.mathModel.R) +
-                                                                          (application.mathModel.R * application.mathModel.E))*2)])
+    ([constantsOfDecisionVariableOfConstrain4arr[z:z + ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2]
+      for z in range(0, len(constantsOfDecisionVariableOfConstrain4arr), ((application.connector_database.I * application.connector_database.R) +
+                                                                          (application.connector_database.R * application.connector_database.E))*2)])
 constantsOfDecisionVariableOfConstrain3 = \
-    ([constantsOfDecisionVariableOfConstrain3arr[t:t + ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2]
-      for t in range(0, len(constantsOfDecisionVariableOfConstrain3arr), ((application.mathModel.I * application.mathModel.R) +
-                                                                          (application.mathModel.R * application.mathModel.E))*2)])
+    ([constantsOfDecisionVariableOfConstrain3arr[t:t + ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2]
+      for t in range(0, len(constantsOfDecisionVariableOfConstrain3arr), ((application.connector_database.I * application.connector_database.R) +
+                                                                          (application.connector_database.R * application.connector_database.E))*2)])
 constantsOfDecisionVariableOfConstrain2 = \
-    ([constantsOfDecisionVariableOfConstrain2arr[x:x + ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2]
-      for x in range(0, len(constantsOfDecisionVariableOfConstrain2arr), ((application.mathModel.I * application.mathModel.R) +
-                                                                          (application.mathModel.R * application.mathModel.E))*2)])
+    ([constantsOfDecisionVariableOfConstrain2arr[x:x + ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2]
+      for x in range(0, len(constantsOfDecisionVariableOfConstrain2arr), ((application.connector_database.I * application.connector_database.R) +
+                                                                          (application.connector_database.R * application.connector_database.E))*2)])
 constantsOfDecisionVariableOfConstrain1 = \
-    ([constantsOfDecisionVariableOfConstrain1arr[v:v + ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2]
-      for v in range(0, len(constantsOfDecisionVariableOfConstrain1arr), ((application.mathModel.I * application.mathModel.R) +
-                                                                          (application.mathModel.R * application.mathModel.E))*2)])
+    ([constantsOfDecisionVariableOfConstrain1arr[v:v + ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2]
+      for v in range(0, len(constantsOfDecisionVariableOfConstrain1arr), ((application.connector_database.I * application.connector_database.R) +
+                                                                          (application.connector_database.R * application.connector_database.E))*2)])
 
 constantsOfDecisionVariableOfConstrain8 = \
-    ([constantsOfDecisionVariableOfConstrain8arr[k:k + ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2]
-      for k in range(0, len(constantsOfDecisionVariableOfConstrain8arr), ((application.mathModel.I * application.mathModel.R) +
-                                                                          (application.mathModel.R * application.mathModel.E))*2)])
+    ([constantsOfDecisionVariableOfConstrain8arr[k:k + ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2]
+      for k in range(0, len(constantsOfDecisionVariableOfConstrain8arr), ((application.connector_database.I * application.connector_database.R) +
+                                                                          (application.connector_database.R * application.connector_database.E))*2)])
 
 constantsOfDecisionVariableOfConstrain9 = \
-    ([constantsOfDecisionVariableOfConstrain9arr[p:p + ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2]
-      for p in range(0, len(constantsOfDecisionVariableOfConstrain9arr), ((application.mathModel.I * application.mathModel.R) +
-                                                                          (application.mathModel.R * application.mathModel.E))*2)])
+    ([constantsOfDecisionVariableOfConstrain9arr[p:p + ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2]
+      for p in range(0, len(constantsOfDecisionVariableOfConstrain9arr), ((application.connector_database.I * application.connector_database.R) +
+                                                                          (application.connector_database.R * application.connector_database.E))*2)])
 
 matrixOfDecisionVariables = []
 
@@ -385,29 +385,29 @@ columnStartIndices.append(indexOfNoZeroElement+1)
 lowerBounds = []
 upperBounds = []
 pointersToCharacters = []
-lowerBounds.extend(0 for i in range(((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2))
-upperBounds.extend(1.0E+30 for i in range(((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2))
-pointersToCharacters.extend('C' for i in range((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E)))
-pointersToCharacters.extend('I' for i in range((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E)))
+lowerBounds.extend(0 for i in range(((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2))
+upperBounds.extend(1.0E+30 for i in range(((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2))
+pointersToCharacters.extend('C' for i in range((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E)))
+pointersToCharacters.extend('I' for i in range((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E)))
 
 
 J1_I_FIT = []
-for i in application.mathModel.J1_I:
-    for iteratorR in range(application.mathModel.R):
+for i in application.connector_database.J1_I:
+    for iteratorR in range(application.connector_database.R):
         J1_I_FIT.append(i)
 
 J1_R_FIT = []
-for i in application.mathModel.J1_R:
-    for iteratorE in range(application.mathModel.E):
+for i in application.connector_database.J1_R:
+    for iteratorE in range(application.connector_database.E):
         J1_R_FIT.append(i)
 
 J1_R__1_I_FIT = []
 J1_R__1_E_FIT = []
 
-J1_R__1_I_FIT.extend(list(map(mul, application.mathModel.J1_R__1_I_arr, application.mathModel.M1_R__1_I)))
+J1_R__1_I_FIT.extend(list(map(mul, application.connector_database.J1_R__1_I_arr, application.connector_database.M1_R__1_I)))
 #J1_R__1_I_FIT = [round(elem, 2) for elem in J1_R__1_I_FIT]
 
-J1_R__1_E_FIT.extend(list(map(mul, application.mathModel.J1_R__1_E_arr, application.mathModel.M1_R__1_E)))
+J1_R__1_E_FIT.extend(list(map(mul, application.connector_database.J1_R__1_E_arr, application.connector_database.M1_R__1_E)))
 #J1_R__1_E_FIT = [round(elem, 2) for elem in J1_R__1_E_FIT]
 
 constantsOfFunctionFit = J1_I_FIT + J1_R_FIT + J1_R__1_I_FIT + J1_R__1_E_FIT
@@ -442,7 +442,7 @@ print('Verification of data:', "\n",
       )
 # checking constantsOfDecisionVariableOfConstrain7
 print('constantsOfDecisionVariableOfConstrain7 :', constantsOfDecisionVariableOfConstrain7)
-if len(constantsOfDecisionVariableOfConstrain7) == ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2:
+if len(constantsOfDecisionVariableOfConstrain7) == ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2:
     print('constants of decision variable of constrain 7 is fine')
 else:
     print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 7')
@@ -458,8 +458,8 @@ for i in range(len(constantsOfDecisionVariableOfConstrain5)):
             count += 1
 print('count of nonZero in constraint5:', count, "\n",
       'count all elements in constraint5: ', allCount)
-if count == ((application.mathModel.I + application.mathModel.E) * application.mathModel.R) and \
-                allCount == ((((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2) * application.mathModel.R):
+if count == ((application.connector_database.I + application.connector_database.E) * application.connector_database.R) and \
+                allCount == ((((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2) * application.connector_database.R):
     print('constants of decision variable of constrain 5 is fine')
 else:
     print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 5')
@@ -467,7 +467,7 @@ else:
 
 # checking constantsOfDecisionVariableOfConstrain6
 print('constantsOfDecisionVariableOfConstrain6 :', constantsOfDecisionVariableOfConstrain6)
-if len(constantsOfDecisionVariableOfConstrain6) == ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2:
+if len(constantsOfDecisionVariableOfConstrain6) == ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2:
     print('constants of decision variable of constrain 6 is fine')
 else:
     print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 6')
@@ -483,8 +483,8 @@ for i in range(len(constantsOfDecisionVariableOfConstrain4)):
             count += 1
 print('count of nonZero in constraint4:', count, "\n",
       'count all elements in constraint4: ', allCount)
-if count == (application.mathModel.I * application.mathModel.R) and \
-                allCount == ((((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2) * application.mathModel.R):
+if count == (application.connector_database.I * application.connector_database.R) and \
+                allCount == ((((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2) * application.connector_database.R):
     print('constants of decision variable of constrain 4 is fine')
 else:
     print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 4')
@@ -500,8 +500,8 @@ for i in range(len(constantsOfDecisionVariableOfConstrain3)):
             count += 1
 print('count of nonZero in constraint3:', count, "\n",
       'count all elements in constraint3: ', allCount)
-if count == (application.mathModel.R * application.mathModel.E) and allCount == ((((application.mathModel.I * application.mathModel.R) +
-                                                               (application.mathModel.R * application.mathModel.E))*2) * application.mathModel.E):
+if count == (application.connector_database.R * application.connector_database.E) and allCount == ((((application.connector_database.I * application.connector_database.R) +
+                                                               (application.connector_database.R * application.connector_database.E))*2) * application.connector_database.E):
     print('constants of decision variable of constrain 3 is fine')
 else:
     print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 3')
@@ -518,8 +518,8 @@ for i in range(len(constantsOfDecisionVariableOfConstrain1)):
             count += 1
 print('count of nonZero in constraint1:', count, "\n",
       'count all elements in constraint1: ', allCount)
-if count == (application.mathModel.I * application.mathModel.R) and allCount == ((((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2)
-                                                             * (application.mathModel.I * application.mathModel.R)):
+if count == (application.connector_database.I * application.connector_database.R) and allCount == ((((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2)
+                                                             * (application.connector_database.I * application.connector_database.R)):
     print('constants of decision variable of constrain 1 is fine')
 else:
     print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 1')
@@ -536,8 +536,8 @@ for i in range(len(constantsOfDecisionVariableOfConstrain2)):
             count += 1
 print('count of nonZero in constraint2:', count, "\n",
       'count all elements in constraint2: ', allCount)
-if count == (application.mathModel.R * application.mathModel.E) and allCount == ((((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2)
-                                                             * (application.mathModel.R * application.mathModel.E)) :
+if count == (application.connector_database.R * application.connector_database.E) and allCount == ((((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2)
+                                                             * (application.connector_database.R * application.connector_database.E)) :
     print('constants of decision variable of constrain 2 is fine')
 else:
     print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 2')
@@ -554,9 +554,9 @@ for i in range(len(constantsOfDecisionVariableOfConstrain8)):
             count += 1
 print('count of nonZero in constraint8:', count, "\n",
       'count all elements in constraint8: ', allCount)
-if count == ((application.mathModel.I * application.mathModel.R)*2) and \
-                allCount == ((((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2) *
-                                 (application.mathModel.I * application.mathModel.R)):
+if count == ((application.connector_database.I * application.connector_database.R)*2) and \
+                allCount == ((((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2) *
+                                 (application.connector_database.I * application.connector_database.R)):
     print('constants of decision variable of constrain 8 is fine')
 else:
     print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 8')
@@ -573,21 +573,21 @@ for i in range(len(constantsOfDecisionVariableOfConstrain9)):
             count += 1
 print('count of nonZero in constraint9:', count, "\n",
       'count all elements in constraint9: ', allCount)
-if count == ((application.mathModel.R * application.mathModel.E)*2) and \
-                allCount == ((((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2) *
-                                 (application.mathModel.R * application.mathModel.E)):
+if count == ((application.connector_database.R * application.connector_database.E)*2) and \
+                allCount == ((((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2) *
+                                 (application.connector_database.R * application.connector_database.E)):
     print('constants of decision variable of constrain 9 is fine')
 else:
     print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 9')
 
 # some other tests:
-if len(application.mathModel.M1_R__1_I) == len(application.mathModel.J1_R__1_I_arr):
+if len(application.connector_database.M1_R__1_I) == len(application.connector_database.J1_R__1_I_arr):
     print("M1_R__1_I and J1_R__1_I_arr have the same length")
 else:
     print("M1_R__1_I AND J1_R__1_I_arr HAVE DIFFERENT LENGTH")
 
 
-if len(application.mathModel.M1_R__1_E) == len(application.mathModel.J1_R__1_E_arr):
+if len(application.connector_database.M1_R__1_E) == len(application.connector_database.J1_R__1_E_arr):
     print("M1_R__1_E and J1_R__1_E_arr have the same length")
 else:
     print("M1_R__1_E AND J1_R__1_E_arr HAVE DIFFERENT LENGTH")
@@ -621,7 +621,7 @@ if len(constantsOfDecisionVariableOfConstrain5[0]) == len(constantsOfDecisionVar
 else:
     print('hmm.. some length of constantsOfDecisionVariableOfConstrain are different from other !!!')
 
-if len(columnStartIndices) - 1 == ((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E))*2:
+if len(columnStartIndices) - 1 == ((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E))*2:
     print('columnStartIndices have good length')
 else:
     print('columnStartIndices have BAD length!!!')
@@ -637,15 +637,15 @@ if countOfConstraints == len(matrixOfDecisionVariables) == len(allConstsOfConstr
 else:
     print('count wrong')
 
-if len(nonZeroCoeficients) == (((application.mathModel.I * application.mathModel.R) + (application.mathModel.R * application.mathModel.E)) + # constraint 7
-                            ((application.mathModel.I + application.mathModel.E) * application.mathModel.R) + # constraint 5
-                            (application.mathModel.I * application.mathModel.R) + # constraint 6
-                            (application.mathModel.I * application.mathModel.R) + # constraint 4
-                            (application.mathModel.R * application.mathModel.E) + # constraint 3
-                            (application.mathModel.I * application.mathModel.R) + # constraint 1
-                            (application.mathModel.R * application.mathModel.E) + # constraint 2
-                            ((application.mathModel.I * application.mathModel.R) * 2) + # constraint 8
-                            ((application.mathModel.R * application.mathModel.E) * 2) ): # constraint 9
+if len(nonZeroCoeficients) == (((application.connector_database.I * application.connector_database.R) + (application.connector_database.R * application.connector_database.E)) + # constraint 7
+                            ((application.connector_database.I + application.connector_database.E) * application.connector_database.R) + # constraint 5
+                            (application.connector_database.I * application.connector_database.R) + # constraint 6
+                            (application.connector_database.I * application.connector_database.R) + # constraint 4
+                            (application.connector_database.R * application.connector_database.E) + # constraint 3
+                            (application.connector_database.I * application.connector_database.R) + # constraint 1
+                            (application.connector_database.R * application.connector_database.E) + # constraint 2
+                            ((application.connector_database.I * application.connector_database.R) * 2) + # constraint 8
+                            ((application.connector_database.R * application.connector_database.E) * 2) ): # constraint 9
     print('Length of non zero coeficients of decision variables is correct')
 else:
     print('LENGTH OF NON ZERO COEFICIENTS OF DECISION VARIABLES IS NOT CORRECT', "\n",
