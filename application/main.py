@@ -4,10 +4,9 @@ import time
 
 from pyLindo import *
 
-import application.calculation_for_ui
-import application.prepare_data_lindo
-from application.calculation_for_ui import (calculate_production_costs_per_plant,
-                                            calculate_transportation_costs_per_plant)
+import prepare_data_lindo
+from calculation_for_ui import (calculate_production_costs_per_plant,
+                                calculate_transportation_costs_per_plant)
 
 
 def solve_problem():
@@ -20,35 +19,35 @@ def solve_problem():
     # model data
     # //////////////
     primalSolutions = []
-    nCons = application.prepare_data_lindo.countOfConstraints  # count of constrains
+    nCons = prepare_data_lindo.countOfConstraints  # count of constrains
     # count of decision variables
-    nVars = application.prepare_data_lindo.countOfDesitionVariables
+    nVars = prepare_data_lindo.countOfDesitionVariables
     nDir = 1  # direction 1 - it`s minimisation of function fit
     dObjConst = 0.0  # constant term in the objective function
-    adC = N.array(application.prepare_data_lindo.constantsOfFunctionFit,
+    adC = N.array(prepare_data_lindo.constantsOfFunctionFit,
                   dtype=N.double)  # coficients of variables in function fit
-    adB = N.array(application.prepare_data_lindo.allConstsOfConstraints,
+    adB = N.array(prepare_data_lindo.allConstsOfConstraints,
                   dtype=N.double)  # constant on the right hand
     # of constrain expressions
     acConTypes = N.array(
-        application.prepare_data_lindo.signsOfConstrainExpressions,
+        prepare_data_lindo.signsOfConstrainExpressions,
         dtype=N.character)  # signs of the
     # constrain expressions
     # the number of nonzero coefficients in the constraint matrix
-    nNZ = len(application.prepare_data_lindo.nonZeroCoeficients)
+    nNZ = len(prepare_data_lindo.nonZeroCoeficients)
     # column-start indices
     anBegCol = N.array(
-        application.prepare_data_lindo.columnStartIndices, dtype=N.int32)
+        prepare_data_lindo.columnStartIndices, dtype=N.int32)
     pnLenCol = N.asarray(None)  # if no blanks are been lefy in matrix = None
-    adA = N.array(application.prepare_data_lindo.nonZeroCoeficients,
+    adA = N.array(prepare_data_lindo.nonZeroCoeficients,
                   dtype=N.double)  # nonzero coefficients
-    anRowX = N.array(application.prepare_data_lindo.rowIndices,
+    anRowX = N.array(prepare_data_lindo.rowIndices,
                      dtype=N.int32)  # row indices
     # lower bounds for desition variables
-    pdLower = N.array(application.prepare_data_lindo.lowerBounds, dtype=N.double)
+    pdLower = N.array(prepare_data_lindo.lowerBounds, dtype=N.double)
     # upper bounds for desition variables
-    pdUpper = N.array(application.prepare_data_lindo.upperBounds, dtype=N.double)
-    pachVarType = N.array(application.prepare_data_lindo.pointersToCharacters,
+    pdUpper = N.array(prepare_data_lindo.upperBounds, dtype=N.double)
+    pachVarType = N.array(prepare_data_lindo.pointersToCharacters,
                           dtype=N.character)  # A pointer to a character vector
 
     # print("\n nCons", nCons, "\n nVars", nVars, "\nnDir", nDir, "\ndObjCons", dObjConst, "\nlen adC", len(adC), "\nadC",
@@ -129,16 +128,16 @@ def solve_problem():
     print("--- %s seconds ---" % (time.time() - start_time))
 
     transportation_costs_each_plant = calculate_transportation_costs_per_plant(
-        application.prepare_data_lindo.I, application.prepare_data_lindo.R,
-        application.prepare_data_lindo.E, primalSolutions,
-        application.prepare_data_lindo.J1_R__1_I_FIT,
-        application.prepare_data_lindo.J1_R__1_E_FIT)
+        prepare_data_lindo.I, prepare_data_lindo.R,
+        prepare_data_lindo.E, primalSolutions,
+        prepare_data_lindo.J1_R__1_I_FIT,
+        prepare_data_lindo.J1_R__1_E_FIT)
 
     production_costs_each_plant = calculate_production_costs_per_plant(
-        application.prepare_data_lindo.I, application.prepare_data_lindo.R,
-        application.prepare_data_lindo.E, primalSolutions,
-        application.prepare_data_lindo.J1_I_FIT,
-        application.prepare_data_lindo.J1_R_FIT)
+        prepare_data_lindo.I, prepare_data_lindo.R,
+        prepare_data_lindo.E, primalSolutions,
+        prepare_data_lindo.J1_I_FIT,
+        prepare_data_lindo.J1_R_FIT)
 
     return {"objective": round(dObj[0], 5),
             "primalSolutions": primalSolutions,

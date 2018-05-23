@@ -3,35 +3,35 @@ from operator import mul
 
 from pandas import *
 
-import application.connector_database
+import connector_database
 
 # \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 # block with prepearing data for transfering into solver
 # ///////////////////////////////////////////////////////
 
-A1_R__1_E = application.connector_database.A1_R__1_E
-A1_R__1_E_arr = application.connector_database.A1_R__1_E_arr
-A1_R__1_I = application.connector_database.A1_R__1_I
-A1_R__1_I_arr = application.connector_database.A1_R__1_I_arr
-E = application.connector_database.E
-G = application.connector_database.G
-I = application.connector_database.I
-J1_I = application.connector_database.J1_I
-J1_R = application.connector_database.J1_R
-J1_R__1_E = application.connector_database.J1_R__1_E
-J1_R__1_E_arr = application.connector_database.J1_R__1_E_arr
-J1_R__1_I_arr = application.connector_database.J1_R__1_I_arr
-K = application.connector_database.K
-M1_R__1_E = application.connector_database.M1_R__1_E
-M1_R__1_I = application.connector_database.M1_R__1_I
-Q = application.connector_database.Q
-Q_TIR = application.connector_database.Q_TIR
-R = application.connector_database.R
-V = application.connector_database.V
-W = application.connector_database.W
-Y = application.connector_database.Y
-Z = application.connector_database.Z
-Z1_R = application.connector_database.Z1_R
+A1_R__1_E = connector_database.A1_R__1_E
+A1_R__1_E_arr = connector_database.A1_R__1_E_arr
+A1_R__1_I = connector_database.A1_R__1_I
+A1_R__1_I_arr = connector_database.A1_R__1_I_arr
+E = connector_database.E
+G = connector_database.G
+I = connector_database.I
+J1_I = connector_database.J1_I
+J1_R = connector_database.J1_R
+J1_R__1_E = connector_database.J1_R__1_E
+J1_R__1_E_arr = connector_database.J1_R__1_E_arr
+J1_R__1_I_arr = connector_database.J1_R__1_I_arr
+K = connector_database.K
+M1_R__1_E = connector_database.M1_R__1_E
+M1_R__1_I = connector_database.M1_R__1_I
+Q = connector_database.Q
+Q_TIR = connector_database.Q_TIR
+R = connector_database.R
+V = connector_database.V
+W = connector_database.W
+Y = connector_database.Y
+Z = connector_database.Z
+Z1_R = connector_database.Z1_R
 
 
 def sumColumn(m, column):

@@ -1,9 +1,9 @@
 """This module does run the server."""
 import os
 from flask import Flask, send_from_directory, jsonify
-import application.main
+import main
 
-APP = Flask(__name__, static_folder='client/build')
+APP = Flask(__name__, static_folder='../client/build')
 
 # Serve React App
 @APP.route('/', defaults={'path': ''})
@@ -13,14 +13,14 @@ def serve(path):
     catch all routes, test if the path is a file => send file => else send
     the index.html
     """
-    if path != "" and os.path.exists("client/build/" + path):
-        return send_from_directory('client/build', path)
-    return send_from_directory('client/build', 'index.html')
+    if path != "" and os.path.exists("../client/build/" + path):
+        return send_from_directory('../client/build', path)
+    return send_from_directory('../client/build', 'index.html')
 
 @APP.route("/api/solve", methods=["GET"])
 def calculate():
     try:
-        binder = application.main.solve_problem()
+        binder = main.solve_problem()
         return jsonify(binder)
     except:
         raise Exception('There has been an error in back-end calculation')

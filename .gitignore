@@ -84,4 +84,4 @@ blog_old.md
 application/.idea/*
 *.pyc
 tmp
-
+.pytest_cache
