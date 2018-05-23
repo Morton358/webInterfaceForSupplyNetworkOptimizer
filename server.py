@@ -20,7 +20,7 @@ def serve(path):
 @APP.route("/api/solve", methods=["GET"])
 def calculate():
     try:
-        binder = application.main.solveProblem()
+        binder = application.main.solve_problem()
         return jsonify(binder)
     except:
         raise Exception('There has been an error in back-end calculation')

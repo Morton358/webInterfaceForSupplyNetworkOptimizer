@@ -6,11 +6,18 @@ export const solveProblemStart = () => {
     };
 };
 
-export const solveProblemSuccess = (objective, primalSol) => {
+export const solveProblemSuccess = (
+    objective,
+    primalSol,
+    transportCostsEachPlant,
+    productionCostsEachPlant
+) => {
     return {
         type: actionTypes.SOLVE_PROBLEM_SUCCESS,
         objective: objective,
-        primalSol: primalSol
+        primalSol: primalSol,
+        transportCostsEachPlant: transportCostsEachPlant,
+        productionCostsEachPlant: productionCostsEachPlant
     };
 };
 

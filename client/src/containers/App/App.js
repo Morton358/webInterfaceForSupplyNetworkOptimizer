@@ -54,6 +54,44 @@ class App extends Component {
                     <Typography component="p">
                         Objective is: {this.props.objective}
                     </Typography>
+                    <Typography component="p">
+                        Total costs for transportation is:{' '}
+                        {this.props.transportationCostsOfEachPlant.reduce(
+                            (acc, cur) => {
+                                return Number((acc + cur).toFixed(5));
+                            },
+                            0
+                        )}
+                    </Typography>
+                    {this.props.transportationCostsOfEachPlant.map(
+                        (transpCost, index) => {
+                            return (
+                                <Typography component="p">
+                                    Transportation costs for plant №{index}:{' '}
+                                    {transpCost}
+                                </Typography>
+                            );
+                        }
+                    )}
+                    <Typography component="p">
+                        Total production costs is:{' '}
+                        {this.props.productionCostsOfEachPlant.reduce(
+                            (acc, cur) => {
+                                return Number((acc + cur).toFixed(5));
+                            },
+                            0
+                        )}
+                    </Typography>
+                    {this.props.productionCostsOfEachPlant.map(
+                        (productionCost, index) => {
+                            return (
+                                <Typography component="p">
+                                    Production costs for plant №{index}:{' '}
+                                    {productionCost}
+                                </Typography>
+                            );
+                        }
+                    )}
                     {this.props.primalSolutions.map((primalSolution, index) => {
                         return (
                             <Typography component="p">
@@ -108,6 +146,8 @@ const mapStateToProps = state => {
     return {
         objective: state.objective,
         primalSolutions: state.primalSol,
+        transportationCostsOfEachPlant: state.transportCostsEachPlant,
+        productionCostsOfEachPlant: state.productionCostsEachPlant,
         error: state.error,
         errorOccured: state.errorOccured,
         loading: state.loading

@@ -9,7 +9,16 @@ export function* solveProblemSaga() {
         const response = yield axios.get('/api/solve');
         const objective = response.data.objective;
         const primalSol = response.data.primalSolutions;
-        yield put(actions.solveProblemSuccess(objective, primalSol));
+        const transportCostsEachPlant = response.data.transportationCostsEachPlant;
+        const productionCostsEachPlant = response.data.productionCostsEachPlant;
+        yield put(
+            actions.solveProblemSuccess(
+                objective,
+                primalSol,
+                transportCostsEachPlant,
+                productionCostsEachPlant
+            )
+        );
     } catch (error) {
         yield put(actions.solveProblemFailed(error));
     }

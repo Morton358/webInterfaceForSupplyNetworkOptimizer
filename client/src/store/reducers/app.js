@@ -5,6 +5,8 @@ import * as actionTypes from '../actions/actionTypes';
 const initialState = {
     objective: null,
     primalSol: null,
+    transportCostsEachPlant: null,
+    productionCostsEachPlant: null,
     error: null,
     errorOccured: false,
     loading: false
@@ -18,6 +20,8 @@ const solveProblemSuccess = (state, action) => {
     return updateObject(state, {
         objective: action.objective,
         primalSol: action.primalSol,
+        transportCostsEachPlant: action.transportCostsEachPlant,
+        productionCostsEachPlant: action.productionCostsEachPlant,
         error: null,
         errorOccured: false,
         loading: false
