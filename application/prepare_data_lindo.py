@@ -59,13 +59,13 @@ for i in range(I):
         sumaA += (1 - 1 / V[r]) * A1_R__1_I[i][r]
 
 
-print('sumaA: ', sumaA)
+# print('sumaA: ', sumaA)
 
 sumaZ = 0
 for r in range(R):
     sumaZ += 1 / V[r] * Z1_R[r]
 
-print('sumaZ: ', sumaZ)
+# print('sumaZ: ', sumaZ)
 
 
 constOfConstraint7 = (sum(itertools.chain(W, Z)) + sumaA + sum(A1_R__1_E_arr) +
@@ -452,275 +452,45 @@ J1_R__1_E_FIT.extend(list(map(mul, J1_R__1_E_arr, M1_R__1_E)))
 J1_R__1_E_FIT = [round(elem, 5) for elem in J1_R__1_E_FIT]
 
 constantsOfFunctionFit = J1_I_FIT + J1_R_FIT + J1_R__1_I_FIT + J1_R__1_E_FIT
-print('Constants of function fit: ', constantsOfFunctionFit, "\n",
-      'Length of array of constants of func. fit: ',
-      len(constantsOfFunctionFit))
+# print('Constants of function fit: ', constantsOfFunctionFit, "\n",
+#       'Length of array of constants of func. fit: ',
+#       len(constantsOfFunctionFit))
 
 flat_matrixOfDecisionVariables = [
     item for sublist in matrixOfDecisionVariables for item in sublist]
 
-# \\\\\\\\\\\\\
-# some tests:
-# /////////////
-print('TESTS: ')
-print('Verification of data:', "\n",
-      'constOfConstraint7 :', constOfConstraint7, "\n",
-      'constOfConstraint6 :', constOfConstraint6, "\n",
-      'constOfConstraint5 :', constsOfConstraint5, "\n",
-      'constOfConstraint4 :', constsOfConstraint4, "\n",
-      'constOfConstraint3 :', constsOfConstraint3, "\n",
-      'constOfConstraint2 :', constsOfConstraint2, "\n",
-      'constOfConstraint1 :', constsOfConstraint1, "\n",
-      'constsOfConstraint8 :', constsOfConstraint8, "\n",
-      'constsOfConstraint9 :', constsOfConstraint9, "\n",
-      'Constants on the right hand of constrain expressions: ',
-      allConstsOfConstraints, "\n",
-      'Length of constants on the right hand of constrain expressions: ', len(
-          allConstsOfConstraints), "\n",
-      'Signs of the constrain expressions: ', signsOfConstrainExpressions, "\n",
-      'Length of signs of the constrain expressions: ', len(
-          signsOfConstrainExpressions), "\n",
-      'Matrix of decision variables: ', "\n", DataFrame(
-          matrixOfDecisionVariables), "\n",
-      'Flat matrix: ', flat_matrixOfDecisionVariables, "\n",
-      'column-start indices: ', columnStartIndices, "\n",
-      'non zero elements: ', nonZeroCoeficients, "\n",
-      'row indices: ', rowIndices, "\n",
-      )
-# checking constantsOfDecisionVariableOfConstrain7
-print('constantsOfDecisionVariableOfConstrain7 :',
-      constantsOfDecisionVariableOfConstrain7)
-if len(constantsOfDecisionVariableOfConstrain7) == ((I * R) + (R * E)) * 2:
-    print('constants of decision variable of constrain 7 is fine')
-else:
-    print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 7')
 
-# checking constantsOfDecisionVariableOfConstrain5
-print('constantsOfDecisionVariableOfConstrain5 :',
-      constantsOfDecisionVariableOfConstrain5)
-count = 0
-allCount = 0
-for i in range(len(constantsOfDecisionVariableOfConstrain5)):
-    for j in constantsOfDecisionVariableOfConstrain5[i]:
-        allCount += 1
-        if j != 0:
-            count += 1
-print('count of nonZero in constraint5:', count, "\n",
-      'count all elements in constraint5: ', allCount)
-if count == ((I + E) * R) and \
-        allCount == ((((I * R) + (R * E)) * 2) * R):
-    print('constants of decision variable of constrain 5 is fine')
-else:
-    print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 5')
-
-
-# checking constantsOfDecisionVariableOfConstrain6
-print('constantsOfDecisionVariableOfConstrain6 :',
-      constantsOfDecisionVariableOfConstrain6)
-if len(constantsOfDecisionVariableOfConstrain6) == ((I * R) + (R * E)) * 2:
-    print('constants of decision variable of constrain 6 is fine')
-else:
-    print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 6')
-
-# checking constantsOfDecisionVariableOfConstrain4
-print('constantsOfDecisionVariableOfConstrain4 :',
-      constantsOfDecisionVariableOfConstrain4)
-count = 0
-allCount = 0
-for i in range(len(constantsOfDecisionVariableOfConstrain4)):
-    for j in constantsOfDecisionVariableOfConstrain4[i]:
-        allCount += 1
-        if j != 0:
-            count += 1
-print('count of nonZero in constraint4:', count, "\n",
-      'count all elements in constraint4: ', allCount)
-if count == (I * R) and \
-        allCount == ((((I * R) + (R * E)) * 2) * R):
-    print('constants of decision variable of constrain 4 is fine')
-else:
-    print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 4')
-
-# checking constantsOfDecisionVariableOfConstrain3
-print('constantsOfDecisionVariableOfConstrain3 :',
-      constantsOfDecisionVariableOfConstrain3)
-count = 0
-allCount = 0
-for i in range(len(constantsOfDecisionVariableOfConstrain3)):
-    for j in constantsOfDecisionVariableOfConstrain3[i]:
-        allCount += 1
-        if j != 0:
-            count += 1
-print('count of nonZero in constraint3:', count, "\n",
-      'count all elements in constraint3: ', allCount)
-if count == (R * E) and allCount == ((((I * R) +
-                                       (R * E)) * 2) * E):
-    print('constants of decision variable of constrain 3 is fine')
-else:
-    print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 3')
-
-
-# checking constantsOfDecisionVariableOfConstrain1
-print('constantsOfDecisionVariableOfConstrain1 :',
-      constantsOfDecisionVariableOfConstrain1)
-count = 0
-allCount = 0
-for i in range(len(constantsOfDecisionVariableOfConstrain1)):
-    for j in constantsOfDecisionVariableOfConstrain1[i]:
-        allCount += 1
-        if j != 0:
-            count += 1
-print('count of nonZero in constraint1:', count, "\n",
-      'count all elements in constraint1: ', allCount)
-if count == (I * R) and allCount == ((((I * R) + (R * E)) * 2)
-                                     * (I * R)):
-    print('constants of decision variable of constrain 1 is fine')
-else:
-    print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 1')
-
-
-# checking constantsOfDecisionVariableOfConstrain2
-print('constantsOfDecisionVariableOfConstrain2 :',
-      constantsOfDecisionVariableOfConstrain2)
-count = 0
-allCount = 0
-for i in range(len(constantsOfDecisionVariableOfConstrain2)):
-    for j in constantsOfDecisionVariableOfConstrain2[i]:
-        allCount += 1
-        if j != 0:
-            count += 1
-print('count of nonZero in constraint2:', count, "\n",
-      'count all elements in constraint2: ', allCount)
-if count == (R * E) and allCount == ((((I * R) + (R * E)) * 2)
-                                     * (R * E)):
-    print('constants of decision variable of constrain 2 is fine')
-else:
-    print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 2')
-
-
-# checking constantsOfDecisionVariableOfConstrain8
-print('constantsOfDecisionVariableOfConstrain8 :',
-      constantsOfDecisionVariableOfConstrain8)
-count = 0
-allCount = 0
-for i in range(len(constantsOfDecisionVariableOfConstrain8)):
-    for j in constantsOfDecisionVariableOfConstrain8[i]:
-        allCount += 1
-        if j != 0:
-            count += 1
-print('count of nonZero in constraint8:', count, "\n",
-      'count all elements in constraint8: ', allCount)
-if count == ((I * R) * 2) and \
-    allCount == ((((I * R) + (R * E)) * 2) *
-                 (I * R)):
-    print('constants of decision variable of constrain 8 is fine')
-else:
-    print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 8')
-
-
-# checking constantsOfDecisionVariableOfConstrain9
-print('constantsOfDecisionVariableOfConstrain9 :',
-      constantsOfDecisionVariableOfConstrain9)
-count = 0
-allCount = 0
-for i in range(len(constantsOfDecisionVariableOfConstrain9)):
-    for j in constantsOfDecisionVariableOfConstrain9[i]:
-        allCount += 1
-        if j != 0:
-            count += 1
-print('count of nonZero in constraint9:', count, "\n",
-      'count all elements in constraint9: ', allCount)
-if count == ((R * E) * 2) and \
-    allCount == ((((I * R) + (R * E)) * 2) *
-                 (R * E)):
-    print('constants of decision variable of constrain 9 is fine')
-else:
-    print('SOMETHING WRONG WITH CONSTANTS OF DESITION VARIABLES 9')
-
-# some other tests:
-if len(M1_R__1_I) == len(J1_R__1_I_arr):
-    print("M1_R__1_I and J1_R__1_I_arr have the same length")
-else:
-    print("M1_R__1_I AND J1_R__1_I_arr HAVE DIFFERENT LENGTH")
-
-
-if len(M1_R__1_E) == len(J1_R__1_E_arr):
-    print("M1_R__1_E and J1_R__1_E_arr have the same length")
-else:
-    print("M1_R__1_E AND J1_R__1_E_arr HAVE DIFFERENT LENGTH")
-
-print('J1_I_FIT: ', J1_I_FIT, "\n",
-      'J1_R_FIT: ', J1_R_FIT, "\n",
-      'J1_R__1_I_FIT: ', J1_R__1_I_FIT, "\n",
-      'J1_R__1_E_FIT: ', J1_R__1_E_FIT)
-
-
-if countOfDesitionVariables == len(
-    matrixOfDecisionVariables[0]) == len(constantsOfFunctionFit) == \
-        len(lowerBounds) == len(upperBounds):
-    print(
-        'countOfDesitionVariables equal to count of the first row in matrix' +
-        'of Decision Variables')
-else:
-    print('countOfDesitionVariables IS NOT equal to count of the first row in' +
-          'matrix of Decision Variables !!!')
-
-if countOfConstraints == len(
-    allConstsOfConstraints) == len(signsOfConstrainExpressions) == \
-        len(matrixOfDecisionVariables):
-    print('count of constraint equal to count of constants on the right hand' +
-          ' of contraint expressions and their signs')
-else:
-    print(
-        'count of constraint _NOT_ equal to count of constants on the' +
-        ' right hand of contraint expressions and their signs')
-
-if len(constantsOfDecisionVariableOfConstrain5[0]) == len(
-    constantsOfDecisionVariableOfConstrain7) == len(
-        constantsOfDecisionVariableOfConstrain6) == len(
-            constantsOfDecisionVariableOfConstrain4[0]) == len(
-        constantsOfDecisionVariableOfConstrain3[0]) == len(
-            constantsOfDecisionVariableOfConstrain2[0]) == len(
-        constantsOfDecisionVariableOfConstrain1[0]) == len(
-            constantsOfDecisionVariableOfConstrain8[0]) == len(
-        constantsOfDecisionVariableOfConstrain9[0]):
-    print('all length of constantsOfDecisionVariableOfConstrain are the same')
-else:
-    print('hmm.. some length of constantsOfDecisionVariableOfConstrain are' +
-          ' different from other !!!')
-
-if len(columnStartIndices) - 1 == ((I * R) + (R * E)) * 2:
-    print('columnStartIndices have good length')
-else:
-    print('columnStartIndices have BAD length!!!')
-
-if len(nonZeroCoeficients) == len(rowIndices):
-    print('length of nonZeroCoeficients are the same as rowIndices')
-else:
-    print('length of nonZeroCoeficients are NOT the same as rowIndices!!!')
-
-if countOfConstraints == len(matrixOfDecisionVariables) == len(
-    allConstsOfConstraints) == \
-        len(signsOfConstrainExpressions):
-    print('count of constraint is fine')
-else:
-    print('count wrong')
-
-if len(nonZeroCoeficients) == (((I * R) + (R * E)) +  # constraint 7
-                               ((I + E) * R) +  # constraint 5
-                               (I * R) +  # constraint 6
-                               (I * R) +  # constraint 4
-                               (R * E) +  # constraint 3
-                               (I * R) +  # constraint 1
-                               (R * E) +  # constraint 2
-                               ((I * R) * 2) +  # constraint 8
-                               ((R * E) * 2)):  # constraint 9
-    print('Length of non zero coeficients of decision variables is correct')
-else:
-    print('LENGTH OF NON ZERO COEFICIENTS OF DECISION VARIABLES IS NOT CORRECT',
-          "\n",
-          'Checking why length of non zero coefocoents is not correct:')
-
-print('pointersToCharacters: ', pointersToCharacters)
-print('len non zero coeficients: ', len(nonZeroCoeficients))
-print('len row indices: ', len(rowIndices))
-print('len column start indices: ', len(columnStartIndices))
+# print('Verification of data:', "\n",
+#       'constOfConstraint7 :', constOfConstraint7, "\n",
+#       'constOfConstraint6 :', constOfConstraint6, "\n",
+#       'constOfConstraint5 :', constsOfConstraint5, "\n",
+#       'constOfConstraint4 :', constsOfConstraint4, "\n",
+#       'constOfConstraint3 :', constsOfConstraint3, "\n",
+#       'constOfConstraint2 :', constsOfConstraint2, "\n",
+#       'constOfConstraint1 :', constsOfConstraint1, "\n",
+#       'constsOfConstraint8 :', constsOfConstraint8, "\n",
+#       'constsOfConstraint9 :', constsOfConstraint9, "\n",
+#       'Constants on the right hand of constrain expressions: ',
+#       allConstsOfConstraints, "\n",
+#       'Length of constants on the right hand of constrain expressions: ', len(
+#           allConstsOfConstraints), "\n",
+#       'Signs of the constrain expressions: ', signsOfConstrainExpressions, "\n",
+#       'Length of signs of the constrain expressions: ', len(
+#           signsOfConstrainExpressions), "\n",
+#       'Matrix of decision variables: ', "\n", DataFrame(
+#           matrixOfDecisionVariables), "\n",
+#       'Flat matrix: ', flat_matrixOfDecisionVariables, "\n",
+#       'column-start indices: ', columnStartIndices, "\n",
+#       'non zero elements: ', nonZeroCoeficients, "\n",
+#       'row indices: ', rowIndices, "\n",
+#       )
+#
+# print('J1_I_FIT: ', J1_I_FIT, "\n",
+#       'J1_R_FIT: ', J1_R_FIT, "\n",
+#       'J1_R__1_I_FIT: ', J1_R__1_I_FIT, "\n",
+#       'J1_R__1_E_FIT: ', J1_R__1_E_FIT)
+#
+# print('pointersToCharacters: ', pointersToCharacters)
+# print('len non zero coeficients: ', len(nonZeroCoeficients))
+# print('len row indices: ', len(rowIndices))
+# print('len column start indices: ', len(columnStartIndices))
