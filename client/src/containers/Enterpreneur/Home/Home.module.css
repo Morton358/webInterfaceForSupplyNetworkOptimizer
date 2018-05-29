@@ -1,0 +1,10 @@
+.container {
+    margin: 5% auto;
+    text-align: center;
+}
+
+.paper {
+    flex-grow: 1;
+    margin: 5% 15%;
+    text-align: left;
+}

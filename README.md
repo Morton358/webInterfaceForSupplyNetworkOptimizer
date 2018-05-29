@@ -19,7 +19,7 @@ flask run;
 
 For hot reloading:
 ```
-nodemon --watch client/build --exec python server.py
+nodemon --watch ../client/build --exec python server.py
 cd client/ && yarn watch
 ```
 
@@ -33,15 +33,14 @@ python server.py
 ```
 ## Running the tests
 
-Tests was created with:
+Tests was created using:
 
-* Jest
-* Enzyme
+* PyTest
 
-At folder client/ run:
+At folder application/ run:
 
 ```
-yarn test
+pytest
 ```
 
 ## Deployment

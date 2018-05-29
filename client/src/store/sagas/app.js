@@ -9,14 +9,21 @@ export function* solveProblemSaga() {
         const response = yield axios.get('/api/solve');
         const objective = response.data.objective;
         const primalSol = response.data.primalSolutions;
-        const transportCostsEachPlant = response.data.transportationCostsEachPlant;
+        const transportCostsEachPlant =
+            response.data.transportationCostsEachPlant;
         const productionCostsEachPlant = response.data.productionCostsEachPlant;
+        const totalCostsEachPlant = transportCostsEachPlant.map(
+            (cost, index) => {
+                return cost + productionCostsEachPlant[index];
+            }
+        );
         yield put(
             actions.solveProblemSuccess(
                 objective,
                 primalSol,
                 transportCostsEachPlant,
-                productionCostsEachPlant
+                productionCostsEachPlant,
+                totalCostsEachPlant
             )
         );
     } catch (error) {

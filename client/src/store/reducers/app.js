@@ -7,6 +7,7 @@ const initialState = {
     primalSol: null,
     transportCostsEachPlant: null,
     productionCostsEachPlant: null,
+    totalCostsEachPlant: null,
     error: null,
     errorOccured: false,
     loading: false
@@ -22,6 +23,7 @@ const solveProblemSuccess = (state, action) => {
         primalSol: action.primalSol,
         transportCostsEachPlant: action.transportCostsEachPlant,
         productionCostsEachPlant: action.productionCostsEachPlant,
+        totalCostsEachPlant: action.totalCostsEachPlant,
         error: null,
         errorOccured: false,
         loading: false

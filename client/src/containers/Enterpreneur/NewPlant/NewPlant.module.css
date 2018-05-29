@@ -1,0 +1,11 @@
+.container {
+    margin: 5% auto;
+    text-align: center;
+}
+
+.fieldset {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 5% 15%;
+    text-align: left;
+}

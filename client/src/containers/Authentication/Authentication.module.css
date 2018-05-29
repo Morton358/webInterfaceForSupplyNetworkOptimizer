@@ -1,0 +1,8 @@
+.root {
+    flex-grow: 1;
+    margin: 5% 15%;
+}
+
+.auth {
+    margin: 8% 20%;
+}

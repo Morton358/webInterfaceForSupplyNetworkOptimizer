@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
+import { BrowserRouter } from 'react-router-dom';
 
 // import styles from './index.module.css';
 import reducer from './store/reducers/app';
@@ -24,7 +25,9 @@ sagaMiddleware.run(watchApp);
 
 const app = (
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <App />
+        </BrowserRouter>
     </Provider>
 );
 

@@ -1,0 +1,6 @@
+input.black {
+    -webkit-text-fill-color: #3f2727;
+    color: #3f2727;
+    font-size: 16px;
+    max-width: 40%;
+}

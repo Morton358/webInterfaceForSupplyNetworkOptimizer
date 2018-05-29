@@ -1,0 +1,97 @@
+.main {
+    background-color: #7a8ebb;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+
+.itemsHidden {
+    display: none;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+.items {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+}
+
+.items li {
+    text-align: center;
+    margin: 15px auto;
+}
+
+.links,
+.logo {
+    color: white;
+    text-decoration: none;
+}
+
+.links:hover,
+.logo:hover,
+.btn_Solve:hover {
+    color: #c3c3c3;
+}
+
+.logo {
+    display: inline-block;
+    font-size: 20px;
+    margin-left: 2%;
+    margin-top: 1%;
+}
+
+.toggle {
+    color: white;
+    cursor: pointer;
+    font-size: 24px;
+    left: 93%;
+    position: relative;
+    top: 5%;
+}
+
+/* .btn_Solve {
+    border: none;
+    background: inherit;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    font-family: "Josefin Sans";
+} */
+
+@media screen and (min-width: 768px) {
+    .main {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 0;
+        height: 70px;
+        align-items: center;
+    }
+
+    .itemsHidden, .items {
+        display: flex !important;
+        margin-right: 30px;
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    .itemsHidden li, .items li {
+        margin: 0;
+    }
+
+    .links {
+        margin-left: 40px;
+    }
+
+    /* .btn_Solve {
+        display: inline-block;
+    } */
+
+    .logo {
+        margin-top: 0;
+    }
+
+    .toggle {
+        display: none;
+    }
+}

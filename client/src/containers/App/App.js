@@ -1,28 +1,17 @@
 import React, { Component } from 'react';
-import Grid from 'material-ui/Grid';
-import Button from 'material-ui/Button';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { CircularProgress } from 'material-ui/Progress';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 
 import styles from './App.module.css';
-import withErrorHandler from '../withErrorHandler/withErrorHandler';
-import * as actions from '../../store/actions/index';
 import headerImage from '../../assets/images/header.png';
 import footerImage from '../../assets/images/footer.png';
+import NavigationBar from '../../components/UI/NavigationBar/NavigationBar';
+import Authentication from '../Authentication/Authentication';
+import Entepreneur from '../Enterpreneur/Entepreneur';
+
 // import Authentication from './Authentication/Authentication.js';
 // import Entepreneur from './Entepreneur/Entepreneur';
 
 class App extends Component {
-    state = {};
-
-    handleSolveProblem = event => {
-        event.preventDefault();
-        this.props.onSolveProblem();
-    };
-
     // handleSubmit = event => {// eslint-disable-line
     //     this.setState({ content: 'entepreneur' });
     // };
@@ -34,132 +23,37 @@ class App extends Component {
         // if (this.state.content === 'entepreneur') {
         //     content = <Entepreneur />;
         // }
-
-        let result = null;
-
-        if (this.props.loading) {
-            result = (
-                <center>
-                    <CircularProgress size={100} />
-                </center>
-            );
-        }
-
-        if (this.props.objective) {
-            result = (
-                <Paper elevation={6} className={styles.Paper__resultOfSolving}>
-                    <Typography variant="headline" component="h3">
-                        The result of solving this problem is:
-                    </Typography>
-                    <Typography component="p">
-                        Objective is: {this.props.objective}
-                    </Typography>
-                    <Typography component="p">
-                        Total costs for transportation is:{' '}
-                        {this.props.transportationCostsOfEachPlant.reduce(
-                            (acc, cur) => {
-                                return Number((acc + cur).toFixed(5));
-                            },
-                            0
-                        )}
-                    </Typography>
-                    {this.props.transportationCostsOfEachPlant.map(
-                        (transpCost, index) => {
-                            return (
-                                <Typography component="p">
-                                    Transportation costs for plant №{index}:{' '}
-                                    {transpCost}
-                                </Typography>
-                            );
-                        }
-                    )}
-                    <Typography component="p">
-                        Total production costs is:{' '}
-                        {this.props.productionCostsOfEachPlant.reduce(
-                            (acc, cur) => {
-                                return Number((acc + cur).toFixed(5));
-                            },
-                            0
-                        )}
-                    </Typography>
-                    {this.props.productionCostsOfEachPlant.map(
-                        (productionCost, index) => {
-                            return (
-                                <Typography component="p">
-                                    Production costs for plant №{index}:{' '}
-                                    {productionCost}
-                                </Typography>
-                            );
-                        }
-                    )}
-                    {this.props.primalSolutions.map((primalSolution, index) => {
-                        return (
-                            <Typography component="p">
-                                Primal solutions №{index}: {primalSolution}
-                            </Typography>
-                        );
-                    })}
-                </Paper>
-            );
-        }
+        let routes = (
+            <Switch>
+                <Route path="/" exact component={Authentication} />
+                <Route path="/entepreneur" component={Entepreneur} />
+                <Redirect to="/" />
+            </Switch>
+        );
 
         return (
             <div className={styles.App}>
-                <Grid
-                    container
-                    spacing={16}
-                    direction="column"
-                    justify="space-between"
-                    alignItems="stretch"
-                >
-                    <Grid item>
-                        <img
-                            src={headerImage}
-                            className={styles.headerImage}
-                            alt="header"
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            variant="raised"
-                            color="primary"
-                            onClick={this.handleSolveProblem}
-                        >
-                            Solve Problem
-                        </Button>
-                        {result}
-                    </Grid>
-                    <Grid item>
-                        <img
-                            src={footerImage}
-                            className={styles.footerImage}
-                            alt="footer"
-                        />
-                    </Grid>
-                </Grid>
+                <header className={styles.headerContainer}>
+                    <img
+                        src={headerImage}
+                        className={styles.headerImage}
+                        alt="header"
+                    />
+                </header>
+                <NavigationBar />
+                <div className={styles.content}>
+                    {routes}
+                </div>
+                <footer className={styles.footerContainer}>
+                    <img
+                        src={footerImage}
+                        className={styles.footerImage}
+                        alt="footer"
+                    />
+                </footer>
             </div>
         );
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        objective: state.objective,
-        primalSolutions: state.primalSol,
-        transportationCostsOfEachPlant: state.transportCostsEachPlant,
-        productionCostsOfEachPlant: state.productionCostsEachPlant,
-        error: state.error,
-        errorOccured: state.errorOccured,
-        loading: state.loading
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onSolveProblem: () => dispatch(actions.solveProblem())
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-    withErrorHandler(App, axios)
-);
+export default withRouter(App);

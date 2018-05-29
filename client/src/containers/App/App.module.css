@@ -1,39 +1,34 @@
-.App {
-    min-height: 100%;
-    text-align: center;
-    width: 100%;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-.App_Grid {
+.App {
     align-items: stretch;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    width: 100%;
+    height: 100%;
 }
 
-.headerImage {
+.headerImage, .footerImage {
     background-repeat: no-repeat;
     background-size: 100%;
     height: auto;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 0;
     padding: 0;
     width: 100%;
 }
 
-.footerImage {
-    background-repeat: no-repeat;
-    background-size: 100%;
+.footerContainer {
     bottom: 0;
-    height: auto;
-    left: 0;
     margin: 3% auto 0 auto;
-    padding: 0;
-    width: 100%;
+    position: relative;
 }
 
-.Paper__resultOfSolving {
-    margin: 3% 20%;
-    padding: 3% 1%;
+.content {
+    flex: 1 auto;
+    height: auto;
+    margin: 1% auto;
+    width: 100%;
 }
