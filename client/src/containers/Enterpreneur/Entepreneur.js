@@ -4,7 +4,7 @@ import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import Home from './Home/Home';
 import NewPlant from './NewPlant/NewPlant';
 import Results from './Results/Results';
-import LogOut from '../../components/Authentication/LogOut/LogOut';
+import LogOut from '../Authentication/LogOut/LogOut';
 
 
 

@@ -8,7 +8,7 @@ import axios from 'axios';
 import styles from './Results.module.css';
 import withErrorHandler from '../../withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
-import Plant from '../Plant/Plant';
+import Plant from './Plant/Plant';
 
 class Results extends Component {
 

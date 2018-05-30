@@ -3,46 +3,34 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+
 import { checkValidity } from '../../../share/utility';
-import { entepreneur } from '../../../assets/forUI/enterpreneur';
+import { register } from '../../../assets/forUI/register';
 import Input from '../../../components/UI/Input/Input';
-import styles from './NewPlant.module.css';
+import styles from './RegisterFiels.module.css';
 
 
-class NewPlant extends Component {
+class RegisterField extends Component {
+    state = { ...register };
 
-    state = {...entepreneur};
-
-    handleAddNew = event => {
+    handleRegister = event => {
         event.preventDefault();
-        const formData = {};
-        const inputs = this.state.activeInputs.filter(el => {
-            return el !== 'preferedPhone' && el !== 'preferedEmail';
-        });
-        for (let formElemIndentifier of inputs) {
-            formData[formElemIndentifier] = this.state.addNewForm[
-                formElemIndentifier
-            ].value;
-        }
-        this.props.onAddNew(formData);
+        // const formData = {...this.state.registerForm};
+        // this.props.onRegister(formData);
+        this.props.submit();
     };
 
     handleInput = (event, inputIdentifier) => {
-        const updatedAddNewForm = { ...this.state.addNewForm };
-        const updatedFormElem = { ...updatedAddNewForm[inputIdentifier] };
-        let updatedActiveInputs = [...this.state.activeInputs];
+        const updatedRegisteForm = { ...this.state.registerForm };
+        const updatedFormElem = { ...updatedRegisteForm[inputIdentifier] };
 
-        if (event.target.value === 'email') {
-            updatedActiveInputs = updatedActiveInputs.filter(inp => {
-                return inp !== 'phone';
-            });
-            updatedActiveInputs.push('email');
-            updatedFormElem.touched = true;
-        } else if (event.target.value === 'phone') {
-            updatedActiveInputs = updatedActiveInputs.filter(inp => {
-                return inp !== 'email';
-            });
-            updatedActiveInputs.push('phone');
+        if (inputIdentifier === 'confirm_password') {
+            updatedFormElem.value = event.target.value;
+            updatedFormElem.valid =
+                updatedFormElem.value ===
+                this.state.registerForm.password.value
+                    ? true
+                    : false;
             updatedFormElem.touched = true;
         } else {
             updatedFormElem.value = event.target.value;
@@ -52,39 +40,32 @@ class NewPlant extends Component {
             );
             updatedFormElem.touched = true;
         }
-        updatedAddNewForm[inputIdentifier] = updatedFormElem;
+
+        updatedRegisteForm[inputIdentifier] = updatedFormElem;
 
         let formIsValid = true;
-        for (let inputIdentifier of updatedActiveInputs) {
+        for (let inputIdentifier of Object.keys(updatedRegisteForm)) {
             formIsValid =
-                updatedAddNewForm[inputIdentifier].valid &&
-                formIsValid &&
-                (updatedAddNewForm.preferedPhone.touched ||
-                    updatedAddNewForm.preferedEmail.touched);
+                updatedRegisteForm[inputIdentifier].valid && formIsValid;
         }
 
         this.setState({
-            addNewForm: updatedAddNewForm,
-            activeInputs: updatedActiveInputs,
+            registerForm: updatedRegisteForm,
             formIsValid: formIsValid
         });
     };
 
     render() {
         const formElementsArray = [];
-        for (let key of this.state.activeInputs) {
+        for (let key of Object.keys(this.state.registerForm)) {
             formElementsArray.push({
                 id: key,
-                config: this.state.addNewForm[key]
+                config: this.state.registerForm[key]
             });
         }
 
         let form = (
             <div className={styles.fieldset}>
-                <Typography variant="headline" style={{ width: '100%' }}>
-                    Address:
-                </Typography>
-                <br />
                 <form>
                     {formElementsArray.map(formElem => {
                         return (
@@ -106,13 +87,17 @@ class NewPlant extends Component {
                 </form>
             </div>
         );
+
         if (this.props.loading) {
             form = <CircularProgress size={150} />;
         }
 
         return (
             <div className={styles.container}>
-                <Typography variant="display2"> Add New Plant: </Typography>
+                <Typography variant="title" color="textSecondary">
+                    {' '}
+                    Please insert your credentials for successfull Registration:{' '}
+                </Typography>
                 {form}
                 <Button
                     disabled={!this.state.formIsValid}
@@ -120,13 +105,13 @@ class NewPlant extends Component {
                     color="primary"
                     style={{ backgroundColor: '#7a8ebb' }}
                     fullWidth
-                    onClick={this.handleAddNew}
+                    onClick={this.handleRegister}
                 >
-                    Submit
+                    Register
                 </Button>
             </div>
         );
     }
 }
 
-export default NewPlant;
+export default RegisterField;

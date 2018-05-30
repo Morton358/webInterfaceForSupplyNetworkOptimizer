@@ -1,0 +1,45 @@
+.Input {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+}
+
+.Label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.InputElement {
+    background-color: white;
+    border: 1px solid #ccc;
+    font: inherit;
+    outline: none;
+    padding: 6px 10px;
+    width: 100%;
+}
+
+.InputElement:focus {
+    background-color: rgba(207, 207, 207, 0.75);
+    outline: none;
+}
+
+.InputElement[type='number']::-webkit-outer-spin-button,
+.InputElement[type='number']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.InputElement[type='number'] {
+    -moz-appearance: textfield;
+}
+
+.InputElement[type='radio'] {
+    width: 50%;
+}
+
+.Invalid {
+    background-color: rgba(230, 178, 177, 0.7);
+    border: 1px solid red;
+}
