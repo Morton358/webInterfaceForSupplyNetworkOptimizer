@@ -94,14 +94,14 @@ class Results extends Component {
 
 const mapStateToProps = state => {
     return {
-        objective: state.objective,
-        primalSolutions: state.primalSol,
-        transportationCostsOfEachPlant: state.transportCostsEachPlant,
-        productionCostsOfEachPlant: state.productionCostsEachPlant,
-        totalCostsOfEachPlant: state.totalCostsEachPlant,
-        error: state.error,
-        errorOccured: state.errorOccured,
-        loading: state.loading
+        objective: state.results.objective,
+        primalSolutions: state.results.primalSol,
+        transportationCostsOfEachPlant: state.results.transportCostsEachPlant,
+        productionCostsOfEachPlant: state.results.productionCostsEachPlant,
+        totalCostsOfEachPlant: state.results.totalCostsEachPlant,
+        error: state.results.error,
+        errorOccured: state.results.errorOccured,
+        loading: state.results.loading
     };
 };
 

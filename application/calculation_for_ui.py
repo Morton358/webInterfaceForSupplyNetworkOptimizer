@@ -71,3 +71,10 @@ def calculate_production_costs_per_plant(I, R, E, primalSolutions, J1_I_FIT,
     result = [x + y for x, y in zip(production_costs_raw_material,
                                     production_costs_products)]
     return [round(elem, 5) for elem in result]
+
+
+def get_counts_farmers_clients(I, R, E):
+    return {'count_farmers': I,
+            'count_clients': E,
+            'count_factories': R
+            }

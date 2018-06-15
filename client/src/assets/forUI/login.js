@@ -3,10 +3,13 @@ export const login = {
         email: {
             elementType: 'input',
             elementConfig: {
+                required: true,
+                margin: 'normal',
                 type: 'email',
-                placeholder: 'Your E-Mail'
+                placeholder: 'some@some.com'
             },
             value: '',
+            label: 'Your E-Mail:',
             validation: {
                 required: true,
                 isEmail: true
@@ -17,10 +20,12 @@ export const login = {
         password: {
             elementType: 'input',
             elementConfig: {
-                type: 'password',
-                placeholder: 'Your Password'
+                required: true,
+                margin: 'normal',
+                type: 'password'
             },
             value: '',
+            label: 'Your Password:',
             validation: {
                 required: true,
                 minLength: 6,

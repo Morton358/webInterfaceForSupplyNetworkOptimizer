@@ -2,5 +2,16 @@ export {
     solveProblem,
     solveProblemStart,
     solveProblemSuccess,
-    solveProblemFailed
-} from './app';
+    solveProblemFailed,
+} from './results';
+
+export {
+    getInitialState,
+    getInitialStateStart,
+    // getInitialStateSuccess,
+    // getInitialStateFailed,
+    // getClientsAndFarmers,
+    // getClientsAndFarmersStart,
+    getClientsAndFarmersSuccess,
+    getClientsAndFarmersFailed
+} from './newPlant';

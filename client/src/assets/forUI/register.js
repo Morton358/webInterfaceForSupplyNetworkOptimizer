@@ -4,6 +4,9 @@ export const register = {
             elementType: 'select',
             elementConfig: {
                 autoFocus: true,
+                select: true,
+                required: true,
+                margin: 'normal',
                 options: [
                     { value: 'entepreneur', displayValue: 'Entepreneur' },
                     { value: 'farmer', displayValue: 'Farmer' },
@@ -11,16 +14,20 @@ export const register = {
                 ]
             },
             value: 'entepreneur',
+            label: 'Please Choose Of What Kind Of User You Are:',
             validation: {},
             valid: true
         },
         first_name: {
             elementType: 'input',
             elementConfig: {
+                required: true,
+                margin: 'normal',
                 type: 'text',
-                placeholder: 'Your First Name'
+                placeholder: 'Georg'
             },
             value: '',
+            label: 'Your First Name:',
             validation: {
                 required: true,
                 isText: true
@@ -31,10 +38,13 @@ export const register = {
         last_name: {
             elementType: 'input',
             elementConfig: {
+                required: true,
+                margin: 'normal',
                 type: 'text',
-                placeholder: 'Your Last Name'
+                placeholder: 'Laslo'
             },
             value: '',
+            label: 'Your Last Name:',
             validation: {
                 required: true,
                 isText: true
@@ -45,10 +55,13 @@ export const register = {
         organization: {
             elementType: 'input',
             elementConfig: {
+                required: true,
+                margin: 'normal',
                 type: 'text',
-                placeholder: 'Name Of Your Organization'
+                placeholder: 'Hortex'
             },
             value: '',
+            label: 'Name Of Your Organization:',
             validation: {
                 required: true
             },
@@ -58,10 +71,13 @@ export const register = {
         email: {
             elementType: 'input',
             elementConfig: {
+                required: true,
+                margin: 'normal',
                 type: 'email',
-                placeholder: 'Your E-Mail'
+                placeholder: 'hortex@hortex.pl'
             },
             value: '',
+            label: 'Your E-Mail:',
             validation: {
                 required: true,
                 isEmail: true
@@ -72,10 +88,12 @@ export const register = {
         password: {
             elementType: 'input',
             elementConfig: {
-                type: 'password',
-                placeholder: 'Your Password'
+                required: true,
+                margin: 'normal',
+                type: 'password'
             },
             value: '',
+            label: 'Your Password',
             validation: {
                 required: true,
                 minLength: 6,
@@ -87,10 +105,12 @@ export const register = {
         confirm_password: {
             elementType: 'input',
             elementConfig: {
-                type: 'password',
-                placeholder: 'Confirm Password'
+                required: true,
+                margin: 'normal',
+                type: 'password'
             },
             value: '',
+            label: 'Confirm Password:',
             validation: {
                 required: true,
                 minLength: 6,

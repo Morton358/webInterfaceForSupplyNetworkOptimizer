@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+
 
 import styles from './Input.module.css';
 import { filterObjByKeys } from '../../../share/utility';
@@ -11,7 +14,7 @@ class Input extends Component {
         let inputElement = null;
         let selectAttr = {};
         const inputStyles = [styles.InputElement];
-        const allowedForSelect = ['autofucus', 'disabled', 'multiple', 'required', 'size'];
+        const allowedForSelect = ['autofucus', 'disabled', 'multiple', 'required', 'size', 'select', 'margin', 'helperText', 'required'];
 
         if (this.props.invalid && this.props.shouldValidate && this.props.touched) {
             inputStyles.push(styles.Invalid);
@@ -23,8 +26,16 @@ class Input extends Component {
         switch (this.props.elementType) {
             case 'input':
                 inputElement = (
-                    <input
-                        className={inputStyles.join(' ')}
+                    // <input
+                    //     className={inputStyles.join(' ')}
+                    //     {...this.props.elementConfig}
+                    //     value={this.props.value}
+                    //     onChange={this.props.changed}
+                    // />
+                    <TextField
+                        fullWidth
+                        error={this.props.invalid && this.props.shouldValidate && this.props.touched}
+                        label={this.props.label}
                         {...this.props.elementConfig}
                         value={this.props.value}
                         onChange={this.props.changed}
@@ -33,7 +44,8 @@ class Input extends Component {
                 break;
             case 'textarea':
                 inputElement = (
-                    <textarea
+                    <TextField
+                        multiline
                         className={inputStyles.join(' ')}
                         {...this.props.elementConfig}
                         value={this.props.value}
@@ -41,27 +53,50 @@ class Input extends Component {
                     />
                 );
                 break;
+            case 'radio':
+                inputElement = (
+                    <React.Fragment>
+                        <label className={styles.Label}>{this.props.label}</label>
+                        <input
+                            className={inputStyles.join(' ')}
+                            {...this.props.elementConfig}
+                            value={this.props.value}
+                            onChange={this.props.changed}
+                        />
+                    </React.Fragment>
+                );
+                break;
             case 'select':
                 selectAttr = filterObjByKeys(this.props.elementConfig, allowedForSelect)
                 inputElement = (
-                    <select
-                        className={inputStyles.join(' ')}
+                    <TextField
+                        fullWidth
+                        error={this.props.invalid && this.props.shouldValidate && this.props.touched}
                         value={this.props.value}
+                        label={this.props.label}
                         onChange={this.props.changed}
                         {...selectAttr}
                     >
                         {this.props.elementConfig.options.map(option => (
-                            <option key={option.value} value={option.value}>
+                            <MenuItem key={option.value} value={option.value}>
                                 {option.displayValue}
-                            </option>
+                            </MenuItem>
                         ))}
-                    </select>
+                    </TextField>
                 );
                 break;
             default:
                 inputElement = (
-                    <input
-                        className={inputStyles.join(' ')}
+                    // <input
+                    //     className={inputStyles.join(' ')}
+                    //     {...this.props.elementConfig}
+                    //     value={this.props.value}
+                    //     onChange={this.props.changed}
+                    // />
+                    <TextField
+                        fullWidth
+                        error={this.props.invalid && this.props.shouldValidate && this.props.touched}
+                        label={this.props.label}
                         {...this.props.elementConfig}
                         value={this.props.value}
                         onChange={this.props.changed}
@@ -70,7 +105,6 @@ class Input extends Component {
         }
         return (
             <div className={styles.Input}>
-                <label className={styles.Label}>{this.props.label}</label>
                 {inputElement}
             </div>
         );

@@ -8,15 +8,6 @@
     width: 85%;
 }
 
-.fieldset {
-    border: 1px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
-    box-sizing: border-box;
-    margin: 3% 3%;
-    padding: 1%;
-    text-align: left;
-}
-
 @media (min-width: 680px) {
     .container {
         width: 680px;
