@@ -2,13 +2,11 @@
 
 Application for solving optimization problems in the web-based supply network management system for big enterprises of production fruit products.
 
-* [Demo]()
-
 ## Getting Started
 
-##### For Development use :
+#### For Development use :
 
-Run server:
+###### Run server:
 
 ```
 export FLASK_APP=server.py;
@@ -17,7 +15,7 @@ flask run;
 
 ```
 
-For hot reloading:
+###### For hot reloading:
 ```
 nodemon --watch ../client/build --exec python server.py
 cd client/ && yarn watch
@@ -31,11 +29,12 @@ Run server:
 python server.py
 
 ```
-## Running the tests
+#### Running the tests
 
 Tests was created using:
 
 * PyTest
+* Jest
 
 At folder application/ run:
 
@@ -43,9 +42,11 @@ At folder application/ run:
 pytest
 ```
 
-## Deployment
+At folder client run
+```
+yarn test
+```
 
-You can prepare and deploy project in Heroku with this commands:
 
 ## Built With
 
@@ -60,6 +61,3 @@ You can prepare and deploy project in Heroku with this commands:
 
 * **Volodymyr Kovalchuk**
 
-## License
-
-This project is licensed under the MIT License 
